@@ -21,9 +21,7 @@ public class purchases {
 		String card;
 		match.dealerPurchasing();
 		TimeUnit.SECONDS.sleep(1);
-		if (playerHand.size() == 0) card = "6";
-		else if (playerHand.size() == 1) card = "6";
-		else card = match.getCard();
+		card = match.getCard();
 		match.dealerGet(card);
 		int valueCard = match.getValueCard(card);
 		if (playerHand.size() == 0 && splitHand.size() == 0) def.setValue1(valueCard);
