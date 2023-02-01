@@ -1,0 +1,96 @@
+	public void CartaJogador(String carta, int valor) throws InterruptedException {
+		int contA = 0;
+		def.setCartaJogador(carta);
+		for (int i = 0; i < contCartaJogador.size(); i++) if (contCartaJogador.get(i).equals("Ás")) contA++;
+		int totalAS = def.totalJogador() + 11;
+		if (contA > 0 && (def.totalJogador()+valor) == 11) {
+			def.setTotalJogador(valor+10);
+			System.out.printf("A carta %s (%d) foi adicionada à sua mão.\n", carta, def.totalJogador());
+		} else if ((contA == 1 && contCartaJogador.size() == 1) && valor == 1) {
+			def.setTotalJogador(1);
+			System.out.printf("A carta %s (%d/%d) foi adicionada à sua mão.\n", carta, def.totalJogador(), totalAS);
+			def.setAsDuroJogador(1);
+			def.setAsSuaveJogador(11);
+		} else if ((contA > 1 && valor == 1) && (totalAS+10 <= 21)) {
+			def.setTotalJogador(1);
+			System.out.printf("A carta %s (%d/%d) foi adicionada à sua mão.\n", carta, def.totalJogador(), totalAS);
+			def.setAsDuroJogador(1);
+			def.setAsSuaveJogador(1);
+		} else if ((contA > 0 && valor > 1) && (((def.asDuroJogador()+valor) <= 11) && totalAS <= 21) && (def.asSuaveJogador()+valor<= 21)){
+			def.setTotalJogador(valor);
+			def.setAsSuaveJogador(valor);
+			System.out.printf("A carta %s (%d)(%d) foi adicionada à sua mão.\n", carta, def.totalJogador(), def.asSuaveJogador());
+		} else if ((contA == 1 && valor == 1) && (contCartaJogador.size() > 1 && totalAS <= 21) && (def.asSuaveDealer()+valor<= 21)){
+			def.setTotalJogador(1);
+			def.setAsDuroJogador(def.totalJogador());
+			def.setAsSuaveJogador(def.totalJogador() + 10);
+			System.out.printf("A carta %s (%d)(%d) foi adicionada à sua mão.\n", carta, def.totalJogador(), def.asSuaveJogador());
+		} else {
+			def.setTotalJogador(valor);
+			System.out.printf("A carta %s (%d) foi adicionada à sua mão.\n", carta, def.totalJogador());
+		}
+	}
+	public void CartaDealer(String carta, int valor) throws InterruptedException {
+		int contA = 0;
+		contCartaDealer.add(carta);
+		for (int i = 0; i < contCartaDealer.size(); i++) if (contCartaDealer.get(i).equals("Ás")) contA++;
+		int totalAS = totalDealer + 11;
+		if ((contA > 0 && (totalDealer+valor) == 11)){ 
+			totalDealer = 21;
+			System.out.printf("A carta %s (%d) foi adicionada à mão do Dealer.\n", carta, totalDealer);
+		} else if ((contA == 1 && contCartaDealer.size() == 1) && valor == 1) {
+			totalDealer += 1;
+			System.out.printf("A carta %s (%d/%d) foi adicionada à mão do Dealer.\n", carta, totalDealer, totalAS);
+			asDuroDealer += 1;
+			asSuaveDealer += 11;
+		} else if ((contA > 1 && valor == 1) && (totalAS+10 <= 21)) {
+			totalDealer +=1;
+			System.out.printf("A carta %s (%d/%d) foi adicionada à mão do Dealer.\n", carta, totalDealer, totalAS);
+			asDuroDealer += 1;
+			asSuaveDealer += 1;
+		} else if ((contA > 0 && valor > 1) && (((asDuroDealer+valor) <= 11) && totalAS <= 21) && (asSuaveDealer+valor<= 21)){
+			totalDealer += valor;
+			asSuaveDealer += valor;
+			System.out.printf("A carta %s (%d/%d) foi adicionada à mão do Dealer.\n", carta, totalDealer, asSuaveDealer);
+		} else if ((contA == 1 && valor == 1) && ((contCartaDealer.size() > 1 && totalAS <= 21) && (asSuaveDealer+valor<= 21))){
+			totalDealer += 1;
+			asDuroDealer += totalDealer;
+			asSuaveDealer += totalDealer + 10;
+			System.out.printf("A carta %s (%d/%d) foi adicionada à mão do Dealer.\n", carta, totalDealer, asSuaveDealer);
+		} else {
+			totalDealer += valor;
+			System.out.printf("A carta %s (%d) foi adicionada à mão do Dealer.\n", carta, totalDealer);
+		}
+	}
+	public void CartaDividido(String carta, int valor) throws InterruptedException {
+		int contA = 0;
+		contCartaJogadorDividido.add(carta);
+		for (int i = 0; i < contCartaJogadorDividido.size(); i++) if (contCartaJogadorDividido.get(i).equals("Ás")) contA++;
+		int totalAS = totalDividido + 11;
+		if (contA > 0 && (totalDividido+valor) == 11) {
+			totalDividido = 21;
+			System.out.printf("A carta %s (%d) foi adicionada à sua mão.\n", carta, totalDividido);
+		} else if ((contA == 1 && contCartaJogadorDividido.size() == 1) && valor == 1) {
+			totalDividido += 1;
+			System.out.printf("A carta %s (%d/%d) foi adicionada à sua mão.\n", carta, totalDividido , totalAS);
+			asDuroDividido += 1;
+			asSuaveDividido += 11;
+		} else if ((contA > 1 && valor == 1) && (totalAS+10 <= 21)) {
+			totalDividido += 1;
+			System.out.printf("A carta %s (%d/%d) foi adicionada à sua mão.\n", carta, totalDividido , totalAS);
+			asDuroDividido += 1;
+			asSuaveDividido += 1;
+		} else if ((contA > 0 && valor > 1) && (((asDuroDividido+valor) <= 11) && totalAS <= 21) && (asSuaveDividido+valor<= 21)) {
+			totalDividido += valor;
+			asSuaveDividido += valor;
+			System.out.printf("A carta %s (%d)(%d) foi adicionada à sua mão.\n", carta, totalDividido , asSuaveDividido);
+		} else if ((contA == 1 && valor == 1) && (contCartaJogadorDividido.size() > 1 && totalAS <= 21)) {
+			totalDividido += 1;
+			asDuroDividido += totalDividido;
+			asSuaveDividido += totalDividido + 10;
+			System.out.printf("A carta %s (%d)(%d) foi adicionada à sua mão.\n", carta, totalDividido , asSuaveDividido);
+		} else {
+			totalDividido += valor;
+			System.out.printf("A carta %s (%d) foi adicionada à sua mão.\n", carta, totalDividido);
+		}
+	}
